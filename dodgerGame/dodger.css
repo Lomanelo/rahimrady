@@ -1,0 +1,153 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+  font-family: 'Orbitron', sans-serif;
+  color: #e94560;
+}
+
+.game-wrapper {
+  text-align: center;
+}
+
+.game-title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px #e94560;
+}
+
+#game-container {
+  width: 800px;
+  height: 400px;
+  background: rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #e94560;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+}
+
+#player {
+  width: 40px;
+  height: 50px;
+  background-color: #e94560;
+  position: absolute;
+  bottom: 0;
+  border-radius: 5px;
+  box-shadow: 0 0 10px #e94560;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  background-color: #ff0000;
+  position: absolute;
+  border-radius: 50%;
+  box-shadow: 0 0 5px #ff0000;
+}
+
+.rectangle {
+  background-color: #00ff00;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0 0 5px #00ff00;
+}
+
+#score {
+  font-size: 1.5rem;
+  margin-top: 1rem;
+  text-shadow: 0 0 5px #e94560;
+}
+
+#lives {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+.heart {
+  width: 30px;
+  height: 30px;
+  background-color: #333;
+  display: inline-block;
+  transform: rotate(-45deg);
+  margin: 0 10px;
+  position: relative;
+}
+
+.heart::before,
+.heart::after {
+  content: "";
+  width: 30px;
+  height: 30px;
+  background-color: #333;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.heart::before {
+  top: -15px;
+  left: 0;
+}
+
+.heart::after {
+  top: 0;
+  right: -15px;
+}
+
+.heart.active {
+  background-color: #e94560;
+}
+
+.heart.active::before,
+.heart.active::after {
+  background-color: #e94560;
+}
+
+.game-over-popup {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(26, 26, 46, 0.9);
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+  color: #e94560;
+  box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+}
+
+.game-over-popup h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.game-over-popup p {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.game-over-popup button {
+  background-color: #e94560;
+  color: #1a1a2e;
+  border: none;
+  padding: 10px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease;
+}
+
+.game-over-popup button:hover {
+  background-color: #1a1a2e;
+  color: #e94560;
+  box-shadow: 0 0 10px #e94560;
+}

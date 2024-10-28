@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(45deg, #1a1a2e, #16213e, #0f3460);
+  font-family: 'Press Start 2P', cursive;
+  color: #e94560;
+}
+
+.game-container {
+  text-align: center;
+}
+
+.game-title {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px #e94560;
+}
+
+#gameCanvas {
+  border: 2px solid #e94560;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(233, 69, 96, 0.5);
+  width: 600px;
+  height: 600px;
+}
+
+#score, #high-score {
+  font-size: 1.2rem;
+  margin-top: 1rem;
+  text-shadow: 0 0 5px #e94560;
+}

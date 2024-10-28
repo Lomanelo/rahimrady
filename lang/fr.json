@@ -1,0 +1,22 @@
+{
+  "nav.home": "Accueil",
+  "nav.about": "À propos",
+  "nav.projects": "Projets",
+  "hero.greeting": "Bonjour, je suis Rahim Rady",
+  "hero.description": "En tant que développeur front-end junior passionné, je me consacre à créer des expériences web attrayantes et conviviales. Explorez mes derniers projets démontrant mes compétences en développement HTML, CSS et JavaScript.",
+  "cta.resume": "CV",
+  "cta.viewProjects": "Voir les Projets",
+  "hire.title": "Engagez-moi",
+  "about.title": "À propos de moi",
+  "about.description": "Bonjour, je suis Rahim Rady, un étudiant en informatique de 20 ans et barman d'Égypte, recherchant activement des opportunités dans l'industrie IT pour appliquer et développer mes compétences. Ma base en Python, HTML, CSS et JavaScript alimente ma passion pour la création de solutions numériques innovantes. J'aborde chaque projet avec une discipline inébranlable et une forte éthique de travail, croyant que le travail acharné est la clé du succès dans le monde de la technologie. Ma maîtrise trilingue de l'arabe, de l'anglais et du français démontre non seulement mon adaptabilité, mais me positionne aussi de manière unique dans le paysage technologique mondial. Je suis impatient de contribuer mes compétences techniques, ma perspective multiculturelle et mon dévouement à une équipe IT avant-gardiste, où je pourrai grandir professionnellement tout en apportant des contributions significatives à des projets de pointe.",
+  "projects.title": "Mes Projets",
+  "footer.copyright": "© 2023 Lomanelo. Tous droits réservés.",
+  "contact.title": "Contactez-moi",
+  "contact.name": "Nom :",
+  "contact.email": "Email :",
+  "contact.message": "Message :",
+  "contact.send": "Envoyer",
+  "contact.namePlaceholder": "Entrez votre nom",
+  "contact.emailPlaceholder": "Entrez votre email",
+  "contact.messagePlaceholder": "Écrivez votre message ici..."
+}
