@@ -119,12 +119,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (languageSelect) {
     languageSelect.addEventListener('click', (e) => {
+      e.preventDefault();
       e.stopPropagation();
       languageDropdown.classList.toggle('active');
     });
 
-    document.addEventListener('click', () => {
-      languageDropdown.classList.remove('active');
+    // Close dropdown when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!languageSelect.contains(e.target)) {
+        languageDropdown.classList.remove('active');
+      }
+    });
+
+    // Prevent dropdown from closing when clicking inside it
+    languageDropdown.addEventListener('click', (e) => {
+      e.stopPropagation();
     });
 
     // Update selected language text
