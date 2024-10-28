@@ -18,15 +18,130 @@ header {
   position: fixed;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(26, 26, 26, 0.8); /* Semi-transparent background */
+  background-color: rgba(26, 26, 26, 0.95);
 }
 
 nav {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+}
+
+.burger-menu {
+  display: none;
+}
+
+.nav-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 1200px;
-  margin: 0 auto;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
+
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  .burger-menu {
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1002;
+    padding: 1rem;
+    cursor: pointer;
+  }
+
+  .burger-icon {
+    width: 30px;
+    height: 20px;
+    position: relative;
+  }
+
+  .burger-icon span {
+    display: block;
+    position: absolute;
+    height: 3px;
+    width: 100%;
+    background: #fff;
+    border-radius: 3px;
+    transition: all 0.3s ease;
+  }
+
+  .burger-icon span:first-child {
+    top: 0;
+  }
+
+  .burger-icon span:nth-child(2) {
+    top: 8px;
+  }
+
+  .burger-icon span:last-child {
+    top: 16px;
+  }
+
+  .burger-menu.active .burger-icon span:first-child {
+    transform: rotate(45deg);
+    top: 8px;
+  }
+
+  .burger-menu.active .burger-icon span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .burger-menu.active .burger-icon span:last-child {
+    transform: rotate(-45deg);
+    top: 8px;
+  }
+
+  .nav-content {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 80%;
+    max-width: 300px;
+    height: 100vh;
+    background: #1a1a1a;
+    flex-direction: column;
+    padding: 80px 20px 20px;
+    transition: right 0.3s ease;
+  }
+
+  .nav-content.active {
+    right: 0;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 2rem;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .social-links {
+    margin-bottom: 2rem;
+  }
+
+  body.light-mode .burger-icon span {
+    background: #333;
+  }
+
+  body.light-mode .nav-content {
+    background: #f4f4f9;
+  }
 }
 
 .nav-links, .social-links {
@@ -954,3 +1069,4 @@ body {
         background: #333;
     }
 }
+
