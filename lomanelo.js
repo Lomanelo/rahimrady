@@ -125,6 +125,31 @@ document.addEventListener('DOMContentLoaded', () => {
       alert('Failed to send message. Please try again later.');
     }
   });
+
+  // Add this to your existing JavaScript
+  const burgerMenu = document.querySelector('.burger-menu');
+  const navContent = document.querySelector('.nav-content');
+  
+  burgerMenu.addEventListener('click', function() {
+    burgerMenu.classList.toggle('active');
+    navContent.classList.toggle('active');
+  });
+
+  // Close menu when clicking a link
+  document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+      burgerMenu.classList.remove('active');
+      navContent.classList.remove('active');
+    });
+  });
+
+  // Close menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!navContent.contains(e.target) && !burgerMenu.contains(e.target)) {
+      burgerMenu.classList.remove('active');
+      navContent.classList.remove('active');
+    }
+  });
 });
 
 function setLanguage(lang) {
