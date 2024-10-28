@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
     loadLanguage(preferredLanguage);
   }
 
-  // Update the resume button functionality
+  // Resume button functionality
   const resumeButton = document.getElementById('resume-button');
   if (resumeButton) {
     resumeButton.addEventListener('click', function(e) {
