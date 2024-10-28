@@ -1044,28 +1044,32 @@ body.light-mode .close:hover {
     }
 }
 
-/* Add or update footer styles */
+/* Remove the social-section from footer */
+.social-section {
+    display: none; /* Hide the entire social section in footer */
+}
+
+/* Update footer styles to be simpler */
 footer {
     padding: 20px 0;
-    text-align: center;  /* Center the text */
+    text-align: center;
     margin-top: 50px;
 }
 
 footer .container {
     max-width: 1200px;
     margin: 0 auto;
-    text-align: center;  /* Ensure container is also centered */
 }
 
 footer p {
-    margin: 0;  /* Remove default paragraph margin */
+    margin: 0;
     font-size: 0.9rem;
-    color: #888;  /* Slightly muted color */
+    color: #888;
 }
 
 /* Light mode adjustment for footer */
 body.light-mode footer p {
-    color: #666;  /* Darker text for light mode */
+    color: #666;
 }
 
 /* Add these loading screen styles */
