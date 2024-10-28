@@ -171,3 +171,4 @@ function loadLanguage(lang) {
     })
     .catch(err => console.error('Error loading language file:', err));
 }
+
