@@ -15,28 +15,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Theme switcher functionality
-  const themeSwitchers = document.querySelectorAll('.fa-adjust, .theme-toggle');
-  if (themeSwitchers.length > 0) {
-    const body = document.body;
+  // Update the theme switcher functionality
+  // Find all theme toggle buttons
+  const themeToggles = document.querySelectorAll('.theme-toggle');
+  const body = document.body;
 
-    themeSwitchers.forEach(switcher => {
-      switcher.addEventListener('click', () => {
-        body.classList.toggle('light-mode');
-        if (body.classList.contains('light-mode')) {
-          localStorage.setItem('theme', 'light');
-        } else {
-          localStorage.setItem('theme', 'dark');
-        }
-      });
-    });
-
-    // Check for saved theme preference
-    const savedTheme = localStorage.getItem('theme');
-    if (savedTheme === 'light') {
-      body.classList.add('light-mode');
-    }
+  // Check for saved theme preference
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    body.classList.add('light-mode');
   }
+
+  // Add click handler to all theme toggle buttons
+  themeToggles.forEach(toggle => {
+    toggle.addEventListener('click', () => {
+      body.classList.toggle('light-mode');
+      localStorage.setItem('theme', body.classList.contains('light-mode') ? 'light' : 'dark');
+    });
+  });
 
   // Language switcher
   const langButtons = document.querySelectorAll('.lang-btn');
@@ -68,31 +64,45 @@ document.addEventListener('DOMContentLoaded', () => {
   const hireMeBtn = document.getElementById('hire-me-btn');
   const closeBtn = document.querySelector('.close');
 
-  if (hireMeBtn) {
+  if (hireMeBtn && modal) {
     hireMeBtn.addEventListener('click', () => {
       modal.style.display = 'block';
+      // Add this line to trigger the animation
+      setTimeout(() => {
+        modal.querySelector('.modal-content').style.opacity = '1';
+        modal.querySelector('.modal-content').style.transform = 'translateY(0)';
+      }, 10);
     });
   }
 
-  if (closeBtn) {
+  if (closeBtn && modal) {
     closeBtn.addEventListener('click', () => {
-      modal.style.display = 'none';
+      modal.querySelector('.modal-content').style.opacity = '0';
+      modal.querySelector('.modal-content').style.transform = 'translateY(20px)';
+      setTimeout(() => {
+        modal.style.display = 'none';
+      }, 300);
+    });
+
+    // Close modal when clicking outside
+    window.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        modal.querySelector('.modal-content').style.opacity = '0';
+        modal.querySelector('.modal-content').style.transform = 'translateY(20px)';
+        setTimeout(() => {
+          modal.style.display = 'none';
+        }, 300);
+      }
     });
   }
-
-  window.addEventListener('click', (e) => {
-    if (e.target === modal) {
-      modal.style.display = 'none';
-    }
-  });
 
   // Burger menu functionality
   const burgerMenu = document.querySelector('.burger-menu');
   const navContent = document.querySelector('.nav-content');
 
   if (burgerMenu && navContent) {
-    burgerMenu.addEventListener('click', function() {
-      console.log('Burger clicked');  // Debug log
+    burgerMenu.addEventListener('click', function(e) {
+      e.stopPropagation(); // Prevent event from bubbling
       burgerMenu.classList.toggle('active');
       navContent.classList.toggle('active');
     });
