@@ -48,25 +48,12 @@ document.addEventListener('DOMContentLoaded', () => {
     loadLanguage(preferredLanguage);
   }
 
-  // Resume button functionality
+  // Update the resume button functionality
   const resumeButton = document.getElementById('resume-button');
   if (resumeButton) {
-    resumeButton.addEventListener('click', async function(e) {
+    resumeButton.addEventListener('click', function(e) {
       e.preventDefault();
-      if (confirm('Do you want to download my CV?')) {
-        try {
-          // Check if file exists
-          const response = await fetch('RahimCv.pdf');
-          if (response.ok) {
-            window.location.href = 'RahimCv.pdf';
-          } else {
-            alert('Sorry, the CV file is temporarily unavailable. Please try again later or contact me directly.');
-          }
-        } catch (error) {
-          console.error('Error downloading CV:', error);
-          alert('Sorry, there was an error downloading the CV. Please try again later or contact me directly.');
-        }
-      }
+      window.location.href = 'RahimCv.pdf';
     });
   }
 
