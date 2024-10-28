@@ -16,18 +16,19 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // Theme switcher functionality
-  const themeSwitcher = document.querySelector('.fa-adjust');
-  if (themeSwitcher) {
+  const themeSwitchers = document.querySelectorAll('.fa-adjust, .theme-toggle');
+  if (themeSwitchers.length > 0) {
     const body = document.body;
 
-    themeSwitcher.addEventListener('click', () => {
-      body.classList.toggle('light-mode');
-      // Save the current theme preference to localStorage
-      if (body.classList.contains('light-mode')) {
-        localStorage.setItem('theme', 'light');
-      } else {
-        localStorage.setItem('theme', 'dark');
-      }
+    themeSwitchers.forEach(switcher => {
+      switcher.addEventListener('click', () => {
+        body.classList.toggle('light-mode');
+        if (body.classList.contains('light-mode')) {
+          localStorage.setItem('theme', 'light');
+        } else {
+          localStorage.setItem('theme', 'dark');
+        }
+      });
     });
 
     // Check for saved theme preference
@@ -47,41 +48,37 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     });
 
-    // Initialize language
     const preferredLanguage = localStorage.getItem('preferredLanguage') || 'en';
     loadLanguage(preferredLanguage);
-  } else {
-    console.warn('Language buttons not found');
   }
-
-  console.log("Lomanelo is here");
 
   // Resume button functionality
   const resumeButton = document.getElementById('resume-button');
   if (resumeButton) {
     resumeButton.addEventListener('click', function(e) {
       e.preventDefault();
-      const message = translations[currentLanguage]['resume.confirmDownload'] || 'Do you want to view my CV?';
-      if (confirm(message)) {
-        // Open the PDF in a new tab
-        window.open('rahimCv.pdf', '_blank');
+      if (confirm('Do you want to download my CV?')) {
+        window.location.href = 'RahimCv.pdf';
       }
     });
   }
 
-  // Modal functionality
+  // Modal and Hire Me functionality
   const modal = document.getElementById('contact-modal');
   const hireMeBtn = document.getElementById('hire-me-btn');
   const closeBtn = document.querySelector('.close');
-  const contactForm = document.getElementById('contact-form');
 
-  hireMeBtn.addEventListener('click', () => {
-    modal.style.display = 'block';
-  });
+  if (hireMeBtn) {
+    hireMeBtn.addEventListener('click', () => {
+      modal.style.display = 'block';
+    });
+  }
 
-  closeBtn.addEventListener('click', () => {
-    modal.style.display = 'none';
-  });
+  if (closeBtn) {
+    closeBtn.addEventListener('click', () => {
+      modal.style.display = 'none';
+    });
+  }
 
   window.addEventListener('click', (e) => {
     if (e.target === modal) {
@@ -89,110 +86,80 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  contactForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const formData = {
-      name: document.getElementById('name').value,
-      email: document.getElementById('email').value,
-      message: document.getElementById('message').value,
-      to: 'rahimrady@gmail.com'
-    };
-
-    try {
-      const response = await fetch('https://api.emailjs.com/api/v1.0/email/send', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          service_id: 'YOUR_SERVICE_ID',
-          template_id: 'YOUR_TEMPLATE_ID',
-          user_id: 'YOUR_PUBLIC_KEY',
-          template_params: formData
-        })
-      });
-
-      if (response.ok) {
-        alert('Message sent successfully!');
-        contactForm.reset();
-        modal.style.display = 'none';
-      } else {
-        throw new Error('Failed to send message');
-      }
-    } catch (error) {
-      console.error('Error:', error);
-      alert('Failed to send message. Please try again later.');
-    }
-  });
-
-  // Add this to your existing JavaScript
+  // Burger menu functionality
   const burgerMenu = document.querySelector('.burger-menu');
   const navContent = document.querySelector('.nav-content');
-  
-  burgerMenu.addEventListener('click', function() {
-    burgerMenu.classList.toggle('active');
-    navContent.classList.toggle('active');
-  });
 
-  // Close menu when clicking a link
-  document.querySelectorAll('.nav-links a').forEach(link => {
-    link.addEventListener('click', () => {
-      burgerMenu.classList.remove('active');
-      navContent.classList.remove('active');
+  if (burgerMenu && navContent) {
+    burgerMenu.addEventListener('click', function() {
+      console.log('Burger clicked');  // Debug log
+      burgerMenu.classList.toggle('active');
+      navContent.classList.toggle('active');
     });
-  });
 
-  // Close menu when clicking outside
-  document.addEventListener('click', (e) => {
-    if (!navContent.contains(e.target) && !burgerMenu.contains(e.target)) {
-      burgerMenu.classList.remove('active');
-      navContent.classList.remove('active');
-    }
-  });
+    // Close menu when clicking a link
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      link.addEventListener('click', () => {
+        burgerMenu.classList.remove('active');
+        navContent.classList.remove('active');
+      });
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+      if (!navContent.contains(e.target) && !burgerMenu.contains(e.target)) {
+        burgerMenu.classList.remove('active');
+        navContent.classList.remove('active');
+      }
+    });
+  }
+
+  // Add this to your existing DOMContentLoaded event listener
+  const languageSelect = document.querySelector('.language-select');
+  const languageDropdown = document.querySelector('.language-dropdown');
+
+  if (languageSelect) {
+    languageSelect.addEventListener('click', (e) => {
+      e.stopPropagation();
+      languageDropdown.classList.toggle('active');
+    });
+
+    document.addEventListener('click', () => {
+      languageDropdown.classList.remove('active');
+    });
+
+    // Update selected language text
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const lang = e.target.getAttribute('data-lang');
+        document.querySelector('.selected-lang').textContent = lang.toUpperCase();
+        languageDropdown.classList.remove('active');
+      });
+    });
+  }
 });
 
+// Language functions
 function setLanguage(lang) {
-  console.log(`Attempting to set language to: ${lang}`);
   localStorage.setItem('preferredLanguage', lang);
   loadLanguage(lang);
 }
 
 function loadLanguage(lang) {
   fetch(`lang/${lang}.json`)
-    .then(response => {
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
-      }
-      return response.json();
-    })
+    .then(response => response.json())
     .then(data => {
-      console.log('Language data loaded:', data);
       document.querySelectorAll('[data-i18n]').forEach(element => {
         const key = element.getAttribute('data-i18n');
         if (data[key]) {
-          if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
-            element.placeholder = data[key];
-          } else if (element.tagName === 'A' && element.getAttribute('href') === '#') {
-            element.textContent = data[key];
-          } else {
-            element.innerHTML = data[key];
-          }
-        } else {
-          console.warn(`No translation found for key: ${key}`);
+          element.innerHTML = data[key];
         }
       });
       document.documentElement.lang = lang;
-      // Remove the RTL setting for Arabic to maintain consistent layout
-      // document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
-
-      // Update active state of language buttons
+      
       document.querySelectorAll('.lang-btn').forEach(btn => {
         btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
       });
     })
-    .catch(err => {
-      console.error('Error loading language file:', err);
-      alert(`Failed to load language file for ${lang}. Please check the console for more details.`);
-    });
+    .catch(err => console.error('Error loading language file:', err));
 }

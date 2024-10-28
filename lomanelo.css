@@ -53,9 +53,9 @@ nav {
 @media (max-width: 768px) {
   .burger-menu {
     display: block;
-    position: absolute;
-    right: 0;
-    top: 0;
+    position: fixed;
+    top: 20px;
+    right: 20px;
     z-index: 1002;
     padding: 1rem;
     cursor: pointer;
@@ -77,70 +77,94 @@ nav {
     transition: all 0.3s ease;
   }
 
-  .burger-icon span:first-child {
-    top: 0;
-  }
-
-  .burger-icon span:nth-child(2) {
-    top: 8px;
-  }
-
-  .burger-icon span:last-child {
-    top: 16px;
-  }
-
-  .burger-menu.active .burger-icon span:first-child {
-    transform: rotate(45deg);
-    top: 8px;
-  }
-
-  .burger-menu.active .burger-icon span:nth-child(2) {
-    opacity: 0;
-  }
-
-  .burger-menu.active .burger-icon span:last-child {
-    transform: rotate(-45deg);
-    top: 8px;
-  }
-
   .nav-content {
     position: fixed;
     top: 0;
-    right: -100%;
-    width: 80%;
-    max-width: 300px;
+    right: -100%;  /* Hide off-screen initially */
+    width: 250px;  /* Fixed width */
     height: 100vh;
-    background: #1a1a1a;
+    background: rgba(26, 26, 26, 0.95);  /* Semi-transparent background */
+    backdrop-filter: blur(10px);  /* Blur effect */
+    display: flex;
     flex-direction: column;
-    padding: 80px 20px 20px;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 2rem;
     transition: right 0.3s ease;
+    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.2);
   }
 
   .nav-content.active {
-    right: 0;
+    right: 0;  /* Slide in when active */
   }
 
   .nav-links {
+    display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 1.5rem;
     margin-bottom: 2rem;
-  }
-
-  .nav-right {
-    flex-direction: column;
-    align-items: center;
   }
 
   .social-links {
+    display: flex;
+    gap: 1.5rem;
     margin-bottom: 2rem;
+  }
+
+  .language-switcher {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    align-items: center;
+  }
+
+  .lang-btn {
+    padding: 0.5rem 1rem;
+    width: 120px;
+    text-align: center;
+  }
+
+  /* Light mode adjustments */
+  body.light-mode .nav-content {
+    background: rgba(244, 244, 249, 0.95);
   }
 
   body.light-mode .burger-icon span {
     background: #333;
   }
 
-  body.light-mode .nav-content {
-    background: #f4f4f9;
+  /* Hide hire me button when sidebar is active */
+  .nav-content.active ~ .floating-hire-me {
+    display: none;
+  }
+
+  /* Style for theme toggle in sidebar */
+  .theme-toggle {
+    padding: 10px 20px;
+    width: 100%;
+    text-align: center;
+    background: none;
+    border: 1px solid #fff;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+  }
+
+  body.light-mode .theme-toggle {
+    border-color: #333;
+    color: #333;
+  }
+
+  .theme-toggle:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+
+  body.light-mode .theme-toggle:hover {
+    background-color: rgba(0, 0, 0, 0.1);
   }
 }
 
@@ -966,107 +990,106 @@ body {
 
 /* Add these burger menu styles */
 .burger-menu {
-    display: none;
+    display: none;  /* Hidden by default */
     cursor: pointer;
+    padding: 15px;
+    z-index: 1002;
+    position: fixed;
+    right: 20px;
+    top: 20px;
 }
 
 .burger-icon {
     width: 30px;
     height: 20px;
     position: relative;
-    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.burger-icon span {
-    display: block;
-    position: absolute;
-    height: 3px;
+.burger-icon .bar {
     width: 100%;
-    background: #fff;
+    height: 3px;
+    background-color: #fff;
     border-radius: 3px;
     transition: all 0.3s ease;
 }
 
-.burger-icon span:first-child {
-    top: 0;
+/* Language switcher styles */
+.language-switcher {
+    position: relative;
 }
 
-.burger-icon span:nth-child(2) {
-    top: 8px;
+.language-select {
+    background: none;
+    border: 1px solid #fff;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
 }
 
-.burger-icon span:last-child {
-    top: 16px;
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #1a1a1a;
+    border-radius: 5px;
+    padding: 5px;
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 100px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
 }
 
-/* Active state for burger menu */
-.burger-menu.active .burger-icon span:first-child {
-    transform: rotate(45deg);
-    top: 8px;
+.language-dropdown.active {
+    display: flex;
 }
 
-.burger-menu.active .burger-icon span:nth-child(2) {
-    opacity: 0;
+.lang-btn {
+    background: none;
+    border: none;
+    color: #fff;
+    padding: 8px 15px;
+    cursor: pointer;
+    text-align: center;
+    transition: background-color 0.3s ease;
 }
 
-.burger-menu.active .burger-icon span:last-child {
-    transform: rotate(-45deg);
-    top: 8px;
+.lang-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-/* Mobile styles */
+/* Light mode adjustments */
+body.light-mode .burger-icon .bar {
+    background-color: #333;
+}
+
+body.light-mode .language-select {
+    border-color: #333;
+    color: #333;
+}
+
+body.light-mode .language-dropdown {
+    background: #f4f4f9;
+}
+
+body.light-mode .lang-btn {
+    color: #333;
+}
+
+body.light-mode .lang-btn:hover {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 @media (max-width: 768px) {
     .burger-menu {
         display: block;
-        position: fixed;
-        top: 10px;
-        right: 20px;
-        z-index: 1001;
-    }
-
-    .nav-content {
-        position: fixed;
-        top: 0;
-        right: -100%;
-        width: 80%;
-        max-width: 300px;
-        height: 100vh;
-        background: #1a1a1a;
-        padding: 60px 20px;
-        transition: right 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .nav-content.active {
-        right: 0;
-    }
-
-    .nav-links, .social-links {
-        flex-direction: column;
-        align-items: center;
-        gap: 20px;
-    }
-
-    .nav-links li, .social-links li {
-        margin: 0;
-    }
-
-    .language-switcher {
-        margin: 0;
-        display: flex;
-        justify-content: center;
-        gap: 10px;
-    }
-
-    /* Light mode adjustments */
-    body.light-mode .nav-content {
-        background: #f4f4f9;
-    }
-
-    body.light-mode .burger-icon span {
-        background: #333;
     }
 }
 
