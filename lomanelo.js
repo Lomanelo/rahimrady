@@ -48,15 +48,6 @@ document.addEventListener('DOMContentLoaded', () => {
     loadLanguage(preferredLanguage);
   }
 
-  // Resume button functionality
-  const resumeButton = document.getElementById('resume-button');
-  if (resumeButton) {
-    resumeButton.addEventListener('click', function(e) {
-      e.preventDefault();
-      window.location.href = 'RahimCv.pdf';
-    });
-  }
-
   // Modal and Hire Me functionality
   const modal = document.getElementById('contact-modal');
   const hireMeBtn = document.getElementById('hire-me-btn');
