@@ -245,7 +245,7 @@ nav {
 }
 
 .nav-links a, .social-links a {
-  color: #1a1a1a; /* Dark text for dark mode header */
+  color: #fff; /* Light text for dark mode */
   text-decoration: none;
   font-size: 0.9rem;
   transition: color 0.3s ease;
@@ -495,18 +495,98 @@ body.light-mode .floating-hire-me button {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #333;
+    background: rgba(255, 255, 255, 0.05);
     color: #fff;
     text-decoration: none;
-    border-radius: 8px;
-    transition: all 0.3s ease;
+    border-radius: 15px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: visible;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
     font-size: 1.2rem;
     font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.project-link::before,
+.project-link::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: -4px;
+    right: -4px;
+    bottom: -4px;
+    border: 2px solid transparent;
+    border-radius: 17px;
+    transition: all 0.4s ease;
+    pointer-events: none;
 }
 
 .project-link:hover {
-    transform: translateY(-5px);
-    background-color: #444;
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.project-link:hover::before {
+    border-color: rgba(255, 255, 255, 0.5);
+    animation: rotate 4s linear infinite;
+}
+
+.project-link:hover::after {
+    border-color: rgba(255, 255, 255, 0.3);
+    animation: rotate 4s linear infinite reverse;
+}
+
+/* Light mode adjustments */
+body.light-mode .project-link {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a1a1a;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .project-link:hover {
+    background: #fff;
+    color: #1a1a1a;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+body.light-mode .project-link:hover::before {
+    border-color: rgba(0, 0, 0, 0.5);
+}
+
+body.light-mode .project-link:hover::after {
+    border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Animation for rotating borders */
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Ensure text remains visible in both modes */
+.project-link {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode .project-link {
+    text-shadow: none;
+    font-weight: 600;
+}
+
+/* Add subtle background contrast for better visibility in light mode */
+body.light-mode .portfolio-grid {
+    background: rgba(0, 0, 0, 0.02);
+    padding: 2rem;
+    border-radius: 20px;
 }
 
 /* Responsive design for projects */
@@ -1629,7 +1709,7 @@ body.light-mode .language-dropdown {
 }
 
 body.light-mode .lang-btn {
-    color: #333;
+    color: #1a1a1a;
 }
 
 @media (max-width: 768px) {
@@ -1904,27 +1984,22 @@ body.light-mode #about p {
         background: #f4f4f9; /* Light background for light mode */
     }
 
-    body.light-mode .nav-links a {
-        color: #1a1a1a; /* Dark text for light mode */
-    }
-
+    body.light-mode .nav-links a,
     body.light-mode .sidebar-social-links .social-links a,
     body.light-mode .sidebar-social-links .social-links button,
-    body.light-mode .theme-toggle {
-        color: #1a1a1a; /* Dark icons for light mode */
+    body.light-mode .theme-toggle,
+    body.light-mode .language-select,
+    body.light-mode .lang-btn {
+        color: #1a1a1a !important; /* Force dark text/icons in light mode */
     }
 
     body.light-mode .language-select {
-        border-color: #1a1a1a;
-        color: #1a1a1a;
+        border: 1px solid #1a1a1a !important;
+        color: #1a1a1a !important;
     }
 
     body.light-mode .language-dropdown {
         background: #f4f4f9;
-    }
-
-    body.light-mode .lang-btn {
-        color: #1a1a1a;
     }
 
     /* Hover effects */
@@ -1932,7 +2007,8 @@ body.light-mode #about p {
     .social-links a:hover,
     .social-links button:hover,
     .theme-toggle:hover {
-        color: #007bff;
+        color: #007bff !important;
+        transform: translateY(-2px);
     }
 
     .lang-btn:hover {
@@ -2013,6 +2089,239 @@ body.light-mode #about p {
 
     .burger-menu.active .burger-icon::after {
         transform: translateY(-8.5px) rotate(-45deg);
+    }
+}
+
+/* Update navigation and social links colors */
+.nav-links a, 
+.social-links a,
+.social-links button,
+.theme-toggle,
+.social-links i {
+    color: #fff !important;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+/* Remove light mode color changes since navbar stays dark */
+body.light-mode .nav-links a, 
+body.light-mode .social-links a,
+body.light-mode .social-links button,
+body.light-mode .theme-toggle,
+body.light-mode .social-links i {
+    color: #fff !important;
+}
+
+/* Language switcher - always white */
+.language-select {
+    color: #fff !important;
+    border: 1px solid #fff;
+}
+
+body.light-mode .language-select {
+    color: #fff !important;
+    border: 1px solid #fff;
+}
+
+.language-dropdown .lang-btn {
+    color: #fff !important;
+}
+
+body.light-mode .language-dropdown .lang-btn {
+    color: #fff !important;
+}
+
+/* Hover effects */
+.nav-links a:hover, 
+.social-links a:hover,
+.social-links button:hover,
+.theme-toggle:hover {
+    color: #007bff !important;
+    transform: translateY(-2px);
+}
+
+/* Projects section enhancement */
+#projects {
+    padding: 80px 0;
+    margin-top: 50px;
+    position: relative;
+    overflow: hidden;
+}
+
+#projects::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+}
+
+#projects h2 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 3rem;
+    color: #fff;
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+    position: relative;
+    transform: translateY(20px);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    padding: 0 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.portfolio-item {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16/9;
+    transform: translateY(40px);
+    opacity: 0;
+    animation: fadeInUp 0.8s ease forwards;
+    animation-delay: calc(var(--item-index) * 0.1s);
+}
+
+.project-link {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.05);
+    color: #fff;
+    text-decoration: none;
+    border-radius: 15px;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: visible;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+    /* Add box shadow for better visibility */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.project-link:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* Light mode adjustments */
+body.light-mode .project-link {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a1a1a;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1),
+                0 0 0 1px rgba(0, 0, 0, 0.05);
+}
+
+body.light-mode .project-link:hover {
+    background: #fff;
+    color: #1a1a1a;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Add subtle background contrast for better visibility in light mode */
+body.light-mode .portfolio-grid {
+    background: rgba(0, 0, 0, 0.02);
+    padding: 2rem;
+    border-radius: 20px;
+}
+
+/* Ensure text remains visible in both modes */
+.project-link {
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+body.light-mode .project-link {
+    text-shadow: none;
+    font-weight: 600;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Add this to your JavaScript to set item indices */
+.portfolio-item:nth-child(1) { --item-index: 1; }
+.portfolio-item:nth-child(2) { --item-index: 2; }
+.portfolio-item:nth-child(3) { --item-index: 3; }
+.portfolio-item:nth-child(4) { --item-index: 4; }
+.portfolio-item:nth-child(5) { --item-index: 5; }
+.portfolio-item:nth-child(6) { --item-index: 6; }
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+    .portfolio-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    #projects h2 {
+        font-size: 2.5rem;
+    }
+}
+
+/* Mobile navigation styles */
+@media (max-width: 768px) {
+    /* When sidebar is open in light mode */
+    body.light-mode .nav-content.active {
+        background: rgba(244, 244, 249, 0.95);
+    }
+
+    /* Navigation links and ALL sidebar icons */
+    body.light-mode .nav-content.active .nav-links a,
+    body.light-mode .nav-content.active .social-links a,
+    body.light-mode .nav-content.active .social-links button,
+    body.light-mode .nav-content.active .theme-toggle,
+    body.light-mode .nav-content.active .language-select,
+    body.light-mode .nav-content.active .lang-btn,
+    body.light-mode .nav-content.active .sidebar-social-links i,
+    body.light-mode .nav-content.active .sidebar-social-links .fa-adjust,
+    body.light-mode .nav-content.active .sidebar-social-links .fab {
+        color: #000 !important;
+    }
+
+    /* Border colors for buttons */
+    body.light-mode .nav-content.active .language-select,
+    body.light-mode .nav-content.active .theme-toggle,
+    body.light-mode .nav-content.active .social-links button {
+        border-color: #000 !important;
+    }
+
+    /* Hover states for all interactive elements */
+    body.light-mode .nav-content.active .nav-links a:hover,
+    body.light-mode .nav-content.active .social-links a:hover,
+    body.light-mode .nav-content.active .social-links button:hover,
+    body.light-mode .nav-content.active .theme-toggle:hover,
+    body.light-mode .nav-content.active .sidebar-social-links i:hover,
+    body.light-mode .nav-content.active .sidebar-social-links .fab:hover {
+        color: #007bff !important;
     }
 }
 
